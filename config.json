@@ -1,0 +1,7 @@
+{
+  "port": 2300,
+  "preview_max": 900,
+  "render_dpi_max": 6000,
+  "max_upload_mb": 24,
+  "keep_uploads": 24
+}

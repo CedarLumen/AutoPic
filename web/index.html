@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AutoPic · 手写稿贴合</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <h1><span class="brand">AutoPic</span> · 把手写稿贴到真草稿纸上</h1>
+    <div class="spacer"></div>
+    <div class="stat" id="stat">正在连接…</div>
+  </header>
+
+  <main>
+    <section class="stage">
+      <div class="toolbar">
+        <button class="sm" id="btn-detect" disabled>自动识别纸张四角</button>
+        <button class="sm" id="btn-reset" disabled>四角复位</button>
+        <span class="spacer"></span>
+        <label class="chk" style="font-size:12.5px">缩放
+          <input type="range" id="zoom" min="0.3" max="3" step="0.05" value="1"
+                 style="width:120px;vertical-align:middle">
+        </label>
+        <label class="chk" style="font-size:12.5px">
+          <input type="checkbox" id="show-quad" checked> 显示四角
+        </label>
+      </div>
+      <!-- 左右分屏：左边草稿纸（拖四角），右边贴合效果，同屏对照 -->
+      <div class="stage-inner">
+        <div class="pane">
+          <div class="canvas-box" id="box-paper">
+            <div class="empty" id="hint-paper">
+              先上传<b>草稿纸照片</b>，再在上面拖动<b>四个角</b>，<br>
+              让四边形框住要写字的那块纸面。
+            </div>
+            <canvas id="cv-paper" hidden></canvas>
+            <div class="canvas-cap" id="cap-paper" hidden>草稿纸照片 · 拖动四角调整</div>
+          </div>
+        </div>
+        <div class="pane">
+          <div class="canvas-box" id="box-prev">
+            <div class="empty" id="hint-prev">
+              再上传<b>手写稿图片</b>（AutoWrite 出的图），<br>这里会实时显示贴合后的效果。
+            </div>
+            <canvas id="cv-prev" hidden></canvas>
+            <div class="canvas-cap" id="cap-prev" hidden>贴合效果预览</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside>
+      <div class="slot">
+        <h3>① 草稿纸照片</h3>
+        <div class="row">
+          <div class="thumb" id="th-paper">未上传</div>
+          <div style="flex:1;min-width:0">
+            <div class="meta" id="meta-paper">用手机拍一张你想写字的那张纸，尽量拍全</div>
+            <button class="sm" id="btn-paper" style="margin-top:6px">选择图片</button>
+            <input type="file" id="file-paper" accept="image/*" hidden>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot">
+        <h3>② 手写稿图片</h3>
+        <div class="row">
+          <div class="thumb" id="th-ink">未上传</div>
+          <div style="flex:1;min-width:0">
+            <div class="meta" id="meta-ink">AutoWrite 生成的整页 PNG</div>
+            <button class="sm" id="btn-ink" style="margin-top:6px">选择图片</button>
+            <input type="file" id="file-ink" accept="image/*" hidden>
+          </div>
+        </div>
+        <div class="hint" id="recent-wrap" hidden>
+          最近生成的手写稿（点一下直接用）：
+          <div class="recent" id="recent"></div>
+        </div>
+      </div>
+
+      <div class="tabs" id="tabs"></div>
+      <div class="params" id="params"></div>
+
+      <div class="actions">
+        <button class="primary" id="btn-render" disabled>出图</button>
+        <button id="btn-download" disabled>保存图片</button>
+      </div>
+      <div style="padding:0 14px 12px">
+        <div class="bar" id="bar"><i></i></div>
+        <div class="prog" id="prog">等待操作</div>
+      </div>
+    </aside>
+  </main>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
